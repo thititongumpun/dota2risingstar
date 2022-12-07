@@ -1,56 +1,72 @@
 import {
-  Link as ChakraLink,
   Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
+  Card,
+  Stack,
+  CardBody,
+  Heading,
+  Image,
+  SimpleGrid,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
+import { Main } from "../components/Main";
+import { GetServerSideProps, NextPage } from "next";
+import { Stats } from "../../types/stats";
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+  const response = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/stats`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const stats: Stats[] = await response.json();
+  return { props: { stats } };
+};
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text color="text">
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-        <Code>TypeScript</Code>.
-      </Text>
+type Props = {
+  stats: Stats[];
+};
 
-      <List spacing={3} my={0} color="text">
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+const Index: NextPage<Props> = ({ stats }) => {
+  return (
+    <>
+      <Main>
+        <SimpleGrid columns={2} spacing={5}>
+          {stats.map((stat) => (
+            <Card
+              key={stat.playerId}
+              direction={{ base: "column", sm: "row" }}
+              overflow="hidden"
+              variant="outline"
+              color="tomato"
+            >
+              <Image
+                src={stat.avatar}
+                alt={stat.avatar}
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "80px" }}
+                maxH={{ base: "80px", sm: "100%" }}
+              />
+              <Stack>
+                <CardBody>
+                  <Heading size="md" py="2">
+                    <ChakraLink href={stat.playerId.toString()}>
+                      {stat.playerName}
+                    </ChakraLink>
+                  </Heading>
+                  <Text color="text">ชนะ: {stat.wl.win}</Text>
+                  <Text color="text">แพ้: {stat.wl.lose}</Text>
+                </CardBody>
+              </Stack>
+            </Card>
+          ))}
+        </SimpleGrid>
+      </Main>
+    </>
+  );
+};
 
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-)
-
-export default Index
+export default Index;
