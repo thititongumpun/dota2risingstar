@@ -34,7 +34,7 @@ const Index: NextPage<Props> = ({ stats }) => {
   return (
     <>
       <Main>
-        <SimpleGrid columns={2} spacing={5}>
+        <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={5}>
           {stats.map((stat) => (
             <Card
               key={stat.playerId}
