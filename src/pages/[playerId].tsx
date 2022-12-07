@@ -4,14 +4,15 @@ import {
   Stack,
   CardBody,
   Heading,
-  Avatar,
   Divider,
   CardFooter,
   ButtonGroup,
   Button,
+  Image,
+  Center,
 } from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
-import { Main } from "../components/Main";
+import { ArrowBackIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { PlayerProfile, Profile } from "../../types/profile";
 import NextLink from "next/link";
 
@@ -39,34 +40,50 @@ type PlayerIdProps = {
   profile: Profile;
 };
 
-const PlayerIdPage: NextPage<PlayerIdProps> = ({ profile }) => {
+const PlayerIdPage: NextPage<PlayerIdProps> = ({ profile, xd }) => {
   return (
-    <Main>
-      <Card maxW="sm">
-        <CardBody>
-          <Avatar
-            size="2xl"
-            name={profile.personaname}
+    <Card maxW="sm">
+      <CardBody>
+        <Center>
+          <Image
             src={profile.avatarfull}
+            alt={profile.personaname}
+            borderRadius="lg"
+            justifySelf="center"
+            objectFit="cover"
+            w={280}
           />
-          <Stack mt="6" spacing="1">
-            <Heading size="md">{profile.personaname}</Heading>
-            <Text>Dota Plus</Text>
-            {profile.plus ? <Text>มีกูรวย</Text> : <Text>จน</Text>}
-          </Stack>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-          <ButtonGroup spacing="2">
-            <NextLink href="/" passHref>
-              <Button variant="ghost" colorScheme="blue">
-                กลับ
-              </Button>
-            </NextLink>
-          </ButtonGroup>
-        </CardFooter>
-      </Card>
-    </Main>
+        </Center>
+        <Stack mt="6" spacing="3">
+          <Heading size="md">Dota Name: {profile.personaname}</Heading>
+          <Text>Id: {profile.account_id}</Text>
+          {profile.plus ? (
+            <Text>
+              Dota Plus: <CheckIcon />
+            </Text>
+          ) : (
+            <Text>
+              Dota Plus: <CloseIcon />
+            </Text>
+          )}
+          {profile.loccountrycode ? (
+            <Text>ประเทศ: {profile.loccountrycode}</Text>
+          ) : (
+            <Text>ประเทศ: คนเถื่อน</Text>
+          )}
+        </Stack>
+      </CardBody>
+      <Divider />
+      <CardFooter>
+        <ButtonGroup spacing="2">
+          <NextLink href="/" passHref>
+            <Button variant="ghost" colorScheme="blue">
+              <ArrowBackIcon />
+            </Button>
+          </NextLink>
+        </ButtonGroup>
+      </CardFooter>
+    </Card>
   );
 };
 

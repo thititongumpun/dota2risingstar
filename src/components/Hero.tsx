@@ -8,7 +8,7 @@ type HeroProps = {
 export const Hero: NextPage<HeroProps> = ({ title }) => (
   <Flex
     justifyContent="center"
-    height="50vh"
+    // height="50vh"
     bgGradient="linear(to-l, heroGradientStart, heroGradientEnd)"
     bgClip="text"
   >
