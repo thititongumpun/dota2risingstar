@@ -28,26 +28,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   const profile: PlayerProfile = await response.json();
-  console.log(profile);
   return {
     props: {
-      profile: profile.profile,
+      profile: profile,
     },
   };
 };
 
 type PlayerIdProps = {
-  profile: Profile;
+  profile: PlayerProfile;
 };
 
-const PlayerIdPage: NextPage<PlayerIdProps> = ({ profile, xd }) => {
+const PlayerIdPage: NextPage<PlayerIdProps> = ({ profile }) => {
   return (
     <Card maxW="sm">
       <CardBody>
         <Center>
           <Image
-            src={profile.avatarfull}
-            alt={profile.personaname}
+            src={profile.profile.avatarfull}
+            alt={profile.profile.personaname}
             borderRadius="lg"
             justifySelf="center"
             objectFit="cover"
@@ -55,9 +54,9 @@ const PlayerIdPage: NextPage<PlayerIdProps> = ({ profile, xd }) => {
           />
         </Center>
         <Stack mt="6" spacing="3">
-          <Heading size="md">Dota Name: {profile.personaname}</Heading>
-          <Text>Id: {profile.account_id}</Text>
-          {profile.plus ? (
+          <Heading size="md">Dota Name: {profile.profile.personaname}</Heading>
+          <Text>Id: {profile.profile.account_id}</Text>
+          {profile.profile.plus ? (
             <Text>
               Dota Plus: <CheckIcon />
             </Text>
@@ -66,10 +65,18 @@ const PlayerIdPage: NextPage<PlayerIdProps> = ({ profile, xd }) => {
               Dota Plus: <CloseIcon />
             </Text>
           )}
-          {profile.loccountrycode ? (
-            <Text>ประเทศ: {profile.loccountrycode}</Text>
+          {profile.profile.loccountrycode ? (
+            <Text>ประเทศ: {profile.profile.loccountrycode}</Text>
           ) : (
             <Text>ประเทศ: คนเถื่อน</Text>
+          )}
+          <Text>แรงค์: {profile.competitive_rank}</Text>
+          <Text>โซโล่เดี่ยวพอ: {profile.solo_competitive_rank}</Text>
+          <Text>ฝีมือประมาณ: {profile.mmr_estimate.estimate}</Text>
+          {profile.leaderboard_rank ? (
+            <Text>อันดับ Immortal: {profile.leaderboard_rank}</Text>
+          ) : (
+            <Text>อับดับ: ไม่มีขยะจัด</Text>
           )}
         </Stack>
       </CardBody>
