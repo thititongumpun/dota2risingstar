@@ -10,32 +10,32 @@ import {
 } from "@chakra-ui/react";
 import { Main } from "../components/Main";
 import { GetServerSideProps, NextPage } from "next";
-import { Stats } from "../../types/stats";
+import { dehydrate, QueryClient, useQuery } from "react-query";
+import { fetchPlayers } from "../hooks/useFetchPlayers";
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-  const response = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/stats`, {
-    headers: {
-      "Content-Type": "application/json",
+export const getServerSideProps: GetServerSideProps = async () => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(["players"], fetchPlayers);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
     },
+  };
+};
+
+const Index: NextPage = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["players"],
+    queryFn: fetchPlayers,
   });
-  const stats: Stats[] = await response.json();
-  return { props: { stats } };
-};
-
-type Props = {
-  stats: Stats[];
-};
-
-const Index: NextPage<Props> = ({ stats }) => {
+  if (isLoading) console.log("loading");
   return (
     <>
       <Main>
         <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={5}>
-          {stats.map((stat) => (
+          {data.map((stat) => (
             <Card
               key={stat.playerId}
               direction={{ base: "column", sm: "row" }}
