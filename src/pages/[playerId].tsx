@@ -11,9 +11,9 @@ import {
   Image,
   Center,
 } from "@chakra-ui/react";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps } from "next";
 import { ArrowBackIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
-import { PlayerProfile, Profile } from "../../types/profile";
+import { PlayerProfile } from "../../types/profile";
 import NextLink from "next/link";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -39,7 +39,7 @@ type PlayerIdProps = {
   profile: PlayerProfile;
 };
 
-const PlayerIdPage: NextPage<PlayerIdProps> = ({ profile }) => {
+const PlayerIdPage = ({ profile }: PlayerIdProps) => {
   return (
     <Card maxW="sm">
       <CardBody>

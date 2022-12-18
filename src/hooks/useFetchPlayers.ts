@@ -11,4 +11,4 @@ export const fetchPlayers = async () => {
   return stats;
 }
 
-export const useFetchPlayers = () => useQuery({ queryKey: ['players'], queryFn: () => fetchPlayers });
+export const useFetchPlayers = () => useQuery(['players'], () => fetchPlayers());
