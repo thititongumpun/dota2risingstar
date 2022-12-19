@@ -7,25 +7,17 @@ import {
   Image,
   SimpleGrid,
   Link as ChakraLink,
-  Spinner,
 } from "@chakra-ui/react";
 import { Main } from "../components/Main";
 import { NextPage } from "next";
 import { useFetchPlayers } from "../hooks/useFetchPlayers";
+import LoadingScreen from "../components/Loading";
 
 const Index: NextPage = () => {
   const { data, isLoading, isError } = useFetchPlayers();
 
   if (isLoading) {
-    return (
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
-    );
+    return <LoadingScreen />
   }
 
   if (isError) {

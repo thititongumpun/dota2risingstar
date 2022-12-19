@@ -11,4 +11,18 @@ export const fetchPlayers = async () => {
   return stats;
 }
 
+export const fetchPlayerId = async (playerId: string) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/profile/${playerId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response.json();
+}
+
 export const useFetchPlayers = () => useQuery(['players'], () => fetchPlayers());
+// export fetchPlayerId;
+// export const useFetchPlayerId = () => useQuery(['getPlayerId', () => fetchPlayerId()]);
