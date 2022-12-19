@@ -15,9 +15,11 @@ import LoadingScreen from "../components/Loading";
 
 const Index: NextPage = () => {
   const { data, isLoading, isError } = useFetchPlayers();
+  // data.map((x) => console.log(x.wl.win));
+  // data.map(x => console.log(x));
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   if (isError) {
@@ -34,17 +36,17 @@ const Index: NextPage = () => {
   return (
     <Main>
       <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={5}>
-        {data.map((stat) => (
+        {data.map((data) => (
           <Card
-            key={stat.playerId}
+            key={data.playerId}
             direction={{ base: "column", sm: "row" }}
             overflow="hidden"
             variant="outline"
             color="tomato"
           >
             <Image
-              src={stat.avatar}
-              alt={stat.avatar}
+              src={data.avatar}
+              alt={data.avatar}
               objectFit="cover"
               maxW={{ base: "100%", sm: "80px" }}
               maxH={{ base: "80px", sm: "100%" }}
@@ -52,12 +54,12 @@ const Index: NextPage = () => {
             <Stack>
               <CardBody>
                 <Heading size="md" py="2">
-                  <ChakraLink href={stat.playerId.toString()}>
-                    {stat.playerName}
+                  <ChakraLink href={data.playerId.toString()}>
+                    {data.playerName}
                   </ChakraLink>
                 </Heading>
-                <Text color="text">ชนะ: {stat.wl.win}</Text>
-                <Text color="text">แพ้: {stat.wl.lose}</Text>
+                <Text color="text">ชนะ: {data.wl.win}</Text>
+                <Text color="text">แพ้: {data.wl.lose}</Text>
               </CardBody>
             </Stack>
           </Card>

@@ -8,6 +8,7 @@ export const fetchPlayers = async () => {
     },
   });
   const stats: Stats[] = await response.json();
+
   return stats;
 }
 
@@ -24,5 +25,3 @@ export const fetchPlayerId = async (playerId: string) => {
 }
 
 export const useFetchPlayers = () => useQuery(['players'], () => fetchPlayers());
-// export fetchPlayerId;
-// export const useFetchPlayerId = () => useQuery(['getPlayerId', () => fetchPlayerId()]);
