@@ -4,6 +4,7 @@ import { Footer } from "./Footer";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import { Text } from "@chakra-ui/react";
 import Head from "next/head";
+import Navbar from "./Navbar";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -11,6 +12,8 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
+    <>
+    <Navbar />
     <Container>
       <Head>
         <title>Dota2 Rising Star</title>
@@ -23,6 +26,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Text>กำจัด ❤️ ขยะ</Text>
       </Footer>
     </Container>
+    </>
   );
 };
 
