@@ -12,7 +12,6 @@ import {
   Center,
   Spinner,
 } from "@chakra-ui/react";
-import {} from "next";
 import { ArrowBackIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { PlayerProfile } from "../../types/profile";
 import NextLink from "next/link";

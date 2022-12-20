@@ -15,8 +15,6 @@ import LoadingScreen from "../components/Loading";
 
 const Index: NextPage = () => {
   const { data, isLoading, isError } = useFetchPlayers();
-  // data.map((x) => console.log(x.wl.win));
-  // data.map(x => console.log(x));
 
   if (isLoading) {
     return <LoadingScreen />;
