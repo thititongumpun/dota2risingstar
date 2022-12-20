@@ -33,7 +33,7 @@ const Index: NextPage = () => {
 
   return (
     <Main>
-      <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={5}>
+      <SimpleGrid columns={2} spacing={10}>
         {data.map((data) => (
           <Card
             key={data.playerId}
