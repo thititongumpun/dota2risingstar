@@ -33,7 +33,7 @@ const Index: NextPage = () => {
 
   return (
     <Main>
-      <SimpleGrid columns={2} spacing={10}>
+      <SimpleGrid columns={{base: 2, md: 3, lg: 3}} spacing={10}>
         {data.map((data) => (
           <Card
             key={data.playerId}
@@ -46,8 +46,8 @@ const Index: NextPage = () => {
               src={data.avatar}
               alt={data.avatar}
               objectFit="cover"
-              maxW={{ base: "100%", sm: "80px" }}
-              maxH={{ base: "80px", sm: "100%" }}
+              maxW={{ base: "100%", sm: "100px" }}
+              maxH={{ base: "100%", sm: "100%" }}
             />
             <Stack>
               <CardBody>
