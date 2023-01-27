@@ -12,6 +12,7 @@ import {
   PopoverContent,
   useColorModeValue,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -52,7 +53,9 @@ export default function WithSubnavigation() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Link color={useColorModeValue("gray.800", "white")} href="/">
-          Dota2
+            <Button colorScheme="teal" size="md">
+              Dota2
+            </Button>
           </Link>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>

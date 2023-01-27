@@ -7,6 +7,9 @@ import {
   Image,
   SimpleGrid,
   Link as ChakraLink,
+  Stat,
+  StatLabel,
+  StatNumber,
 } from "@chakra-ui/react";
 import { Main } from "../components/Main";
 import { NextPage } from "next";
@@ -33,7 +36,7 @@ const Index: NextPage = () => {
 
   return (
     <Main>
-      <SimpleGrid columns={{base: 2, md: 3, lg: 3}} spacing={10}>
+      <SimpleGrid columns={{ base: 2, md: 3, lg: 3 }} spacing={10}>
         {data.map((data) => (
           <Card
             key={data.playerId}
@@ -56,8 +59,12 @@ const Index: NextPage = () => {
                     {data.playerName}
                   </ChakraLink>
                 </Heading>
-                <Text color="text">ชนะ: {data.wl.win}</Text>
-                <Text color="text">แพ้: {data.wl.lose}</Text>
+                {/* <Text color="text">ชนะ: {data.wl.win}</Text>
+                <Text color="text">แพ้: {data.wl.lose}</Text> */}
+                <Stat size='sm'>
+                  <StatNumber>ชนะ: {data.wl.win}</StatNumber>
+                  <StatNumber>แพ้: {data.wl.lose}</StatNumber>
+                </Stat>
               </CardBody>
             </Stack>
           </Card>
